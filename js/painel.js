@@ -50,6 +50,10 @@ $("form-consulta").addEventListener("submit", (e) => {
   e.preventDefault();
   const f = e.target;
   const consultas = ler("consultas");
+    const ocupado = consultas.some(
+    (c) => c.data === f.data.value && c.hora === f.hora.value && c.status !== "Cancelada"
+  );
+  if (ocupado) return alert("Já existe consulta neste horário. Escolha outro.");
   consultas.push({
     paciente: f.paciente.value, data: f.data.value, hora: f.hora.value,
     procedimento: f.procedimento.value, status: "Agendada",
