@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel | SorrisoCerto</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <strong>🦷 SorrisoCerto</strong>
+    <nav><span id="usuario"></span><a href="#" id="sair">Sair</a></nav>
+  </header>
+  <main>
+    <section class="cards">
+      <div class="card"><p>Pacientes</p><div class="num" id="t-pacientes">0</div></div>
+      <div class="card"><p>Consultas hoje</p><div class="num" id="t-hoje">0</div></div>
+      <div class="card"><p>Confirmadas</p><div class="num" id="t-conf">0</div></div>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <h3>Novo paciente</h3>
+        <form id="form-paciente">
+          <input name="nome" placeholder="Nome" required>
+          <input name="telefone" placeholder="Telefone" required>
+          <button class="btn">Cadastrar</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Agendar consulta</h3>
+        <form id="form-consulta">
+          <select name="paciente" id="sel-paciente" required></select>
+          <input name="data" type="date" required>
+          <input name="hora" type="time" required>
+          <select name="procedimento">
+            <option>Limpeza</option><option>Ortodontia</option>
+            <option>Clareamento</option><option>Canal</option>
+          </select>
+          <button class="btn">Agendar</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Agenda</h3>
+      <table>
+        <thead><tr><th>Paciente</th><th>Data</th><th>Hora</th><th>Procedimento</th><th>Status</th><th>Ações</th></tr></thead>
+        <tbody id="agenda"></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="js/painel.js"></script>
+</body>
+</html>
