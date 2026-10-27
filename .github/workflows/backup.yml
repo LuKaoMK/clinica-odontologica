@@ -1,0 +1,32 @@
+name: Backup
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Enviar snapshot para o repositório de backup
+        env:
+          BACKUP_TOKEN: ${{ secrets.BACKUP_TOKEN }}
+        run: |
+          DATE=$(date -u +%Y%m%d-%H%M%S)
+          git remote add backup "https://x-access-token:${BACKUP_TOKEN}@github.com/LuKaoMK/clinica-odontologica-backup.git"
+          git push backup "HEAD:refs/heads/snapshot-${DATE}"
+      - name: Bundle completo (todas as branches e tags)
+        run: git bundle create backup.bundle --all
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-${{ github.run_id }}
+          path: backup.bundle
+          retention-days: 30
